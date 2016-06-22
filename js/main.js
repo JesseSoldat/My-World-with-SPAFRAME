@@ -4,8 +4,12 @@ import angular from 'angular';
 import $ from 'jquery';
 import _ from 'underscore';
 
-console.log('Hello, World');
+
+
+//app modules
+import './app-core/index';
+import './app-frame/index';
 
 
 angular
-	.module('app', []);
+	.module('app', ['app.core','app.frame']);
