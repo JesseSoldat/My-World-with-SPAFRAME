@@ -66,17 +66,25 @@ var _directivesFrameDir2 = _interopRequireDefault(_directivesFrameDir);
 _angular2['default'].module('app.frame', []).controller('FrameCtrl', _controllersFrameCtrl2['default']).directive('frameDir', _directivesFrameDir2['default']);
 
 },{"./controllers/frame.ctrl":2,"./directives/frame.dir":3,"angular":12}],5:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+	value: true
 });
-var menuCtrl = function menuCtrl() {};
+var menuCtrl = function menuCtrl($scope) {
 
-menuCtrl.$inject = [];
+	this.getActiveElement = function () {
+		return $scope.activeElement;
+	};
+	this.setActiveElement = function (el) {
+		$scope.activeElement = el;
+	};
+};
 
-exports["default"] = menuCtrl;
-module.exports = exports["default"];
+menuCtrl.$inject = ['$scope'];
+
+exports['default'] = menuCtrl;
+module.exports = exports['default'];
 
 },{}],6:[function(require,module,exports){
 'use strict';
@@ -121,6 +129,9 @@ var menuGroupDir = function menuGroupDir() {
 			scope.clicked = function () {
 				scope.isOpen = !scope.isOpen;
 			};
+			scope.isVertical = function () {
+				return true;
+			};
 		}
 
 	};
@@ -146,7 +157,22 @@ var menuItemDir = function menuItemDir() {
 			route: '@'
 
 		},
-		templateUrl: './templates/menuItem.tpl.html'
+		templateUrl: './templates/menuItem.tpl.html',
+		link: function link(scope, el, attr, ctrl) {
+			scope.isActive = function () {
+				return el === ctrl.getActiveElement();
+			};
+			scope.isVertical = function () {
+				return true;
+			};
+			el.on('click', function (evt) {
+				evt.stopPropagation();
+				evt.preventDefault();
+				scope.$apply(function () {
+					ctrl.setActiveElement(el);
+				});
+			});
+		}
 
 	};
 };

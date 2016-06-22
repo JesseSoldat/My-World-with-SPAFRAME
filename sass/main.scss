@@ -89,6 +89,25 @@ body {
 		-ms-user-select: none;
 		user-select: none;
 	}
+	.group-indicator-left {
+		float: right;
+		color: #ddd;
+		margin-right: 2px;
+		margin-top: 15px;
+	}
+	.menu-active-indicator {
+		float: right;
+		color: #ddd;
+		margin-top: 8px;
+		margin-right: 0px;
+	}
+	/*.view {
+		margin-left: 200px;
+		padding: 20px;
+		background-color: #ccc;
+		min-height: 100vh;
+		overflow: auto;
+	}*/
 
 }
 

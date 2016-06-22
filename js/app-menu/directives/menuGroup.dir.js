@@ -15,6 +15,9 @@ let menuGroupDir = function () {
 			scope.clicked = function() {
 				scope.isOpen = !scope.isOpen;
 			}
+			scope.isVertical = function() {
+				return true;
+			}
 		}
 
 	}
