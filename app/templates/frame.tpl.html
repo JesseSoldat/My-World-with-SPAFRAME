@@ -1,7 +1,8 @@
 <div class="title-bar">
 	<div class="row">
 		<div class="logo-area col-sm-6">
-			<i class="{{icon}}"></i>
+			<!-- <i class="icon {{icon}}"></i> -->
+			<img class="icon" ng-src="{{icon}}">
 			<div class="title-area">
 				<p class="logo-title">
 					{{title}}
@@ -11,5 +12,23 @@
 				</p>
 			</div>
 		</div>
+
+		<div class="right-controls col-sm-6">
+			<div>
+				<button class="btn btn-primary">
+					Button 1
+				</button>
+				<button class="btn btn-success">
+					Button 2
+				</button>
+				<button class="btn btn-warning">
+					Button 3
+				</button>
+			</div>
+		</div>
+
+
 	</div>
 </div>
+
+<div ng-transclude></div>

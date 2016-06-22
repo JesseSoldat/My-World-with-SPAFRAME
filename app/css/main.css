@@ -2191,6 +2191,35 @@
   clip: auto; }
 
 body {
-  background: #e2ebf3; }
+  background: #e2ebf3;
+  font-family: "Open Sans", sans-serif; }
+
+.container-fluid {
+  padding: 0; }
+
+/*framework BEGIN*/
+.title-bar {
+  background-color: white;
+  padding: 0 20px;
+  border-bottom: 2px solid black; }
+  .title-bar .icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 8px;
+    vertical-align: top; }
+  .title-bar .title-area {
+    display: inline-block;
+    text-align: center; }
+  .title-bar .logo-title {
+    color: #111;
+    margin-top: 6px; }
+  .title-bar .logo-subtitle {
+    font-size: 13px;
+    margin-top: -5px; }
+  .title-bar .right-controls {
+    line-height: 60px; }
+  .title-bar .right-controls > div {
+    text-align: center; }
 
 /*# sourceMappingURL=main.css.map */
