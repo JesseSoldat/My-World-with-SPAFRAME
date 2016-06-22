@@ -1,5 +1,7 @@
 let menuDir = function() {
 	return {
+		transclude: true,
+		controller: 'MenuCtrl',
 		scope: {
 
 		},

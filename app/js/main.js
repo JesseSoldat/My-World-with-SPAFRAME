@@ -9,7 +9,7 @@ var _angular2 = _interopRequireDefault(_angular);
 
 _angular2['default'].module('app.core', []);
 
-},{"angular":10}],2:[function(require,module,exports){
+},{"angular":12}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -65,7 +65,7 @@ var _directivesFrameDir2 = _interopRequireDefault(_directivesFrameDir);
 
 _angular2['default'].module('app.frame', []).controller('FrameCtrl', _controllersFrameCtrl2['default']).directive('frameDir', _directivesFrameDir2['default']);
 
-},{"./controllers/frame.ctrl":2,"./directives/frame.dir":3,"angular":10}],5:[function(require,module,exports){
+},{"./controllers/frame.ctrl":2,"./directives/frame.dir":3,"angular":12}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86,6 +86,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 var menuDir = function menuDir() {
 	return {
+		transclude: true,
+		controller: 'MenuCtrl',
 		scope: {},
 		templateUrl: './templates/menu.tpl.html'
 	};
@@ -97,6 +99,57 @@ exports['default'] = menuDir;
 module.exports = exports['default'];
 
 },{}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var menuGroupDir = function menuGroupDir() {
+	return {
+		require: '^menuDir',
+		transclude: true,
+		scope: {
+			label: '@',
+			icon: '@',
+			route: '@'
+
+		},
+		templateUrl: './templates/menuGroup.tpl.html'
+
+	};
+};
+
+menuGroupDir.$inject = [];
+
+exports['default'] = menuGroupDir;
+module.exports = exports['default'];
+
+},{}],8:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var menuItemDir = function menuItemDir() {
+	return {
+		require: '^menuDir',
+		scope: {
+			label: '@',
+			icon: '@',
+			route: '@'
+
+		},
+		templateUrl: './templates/menuItem.tpl.html'
+
+	};
+};
+
+menuItemDir.$inject = [];
+
+exports['default'] = menuItemDir;
+module.exports = exports['default'];
+
+},{}],9:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -113,9 +166,17 @@ var _directivesMenuDir = require('./directives/menu.dir');
 
 var _directivesMenuDir2 = _interopRequireDefault(_directivesMenuDir);
 
-_angular2['default'].module('app.menu', []).controller('MenuCtrl', _controllersMenuCtrl2['default']).directive('menuDir', _directivesMenuDir2['default']);
+var _directivesMenuItemDir = require('./directives/menuItem.dir');
 
-},{"./controllers/menu.ctrl":5,"./directives/menu.dir":6,"angular":10}],8:[function(require,module,exports){
+var _directivesMenuItemDir2 = _interopRequireDefault(_directivesMenuItemDir);
+
+var _directivesMenuGroupDir = require('./directives/menuGroup.dir');
+
+var _directivesMenuGroupDir2 = _interopRequireDefault(_directivesMenuGroupDir);
+
+_angular2['default'].module('app.menu', []).controller('MenuCtrl', _controllersMenuCtrl2['default']).directive('menuDir', _directivesMenuDir2['default']).directive('menuItemDir', _directivesMenuItemDir2['default']).directive('menuGroupDir', _directivesMenuGroupDir2['default']);
+
+},{"./controllers/menu.ctrl":5,"./directives/menu.dir":6,"./directives/menuGroup.dir":7,"./directives/menuItem.dir":8,"angular":12}],10:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -142,7 +203,7 @@ require('./app-menu/index');
 
 _angular2['default'].module('app', ['app.core', 'app.frame', 'app.menu']);
 
-},{"./app-core/index":1,"./app-frame/index":4,"./app-menu/index":7,"angular":10,"jquery":11,"underscore":12}],9:[function(require,module,exports){
+},{"./app-core/index":1,"./app-frame/index":4,"./app-menu/index":9,"angular":12,"jquery":13,"underscore":14}],11:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31616,11 +31677,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":9}],11:[function(require,module,exports){
+},{"./angular":11}],13:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
@@ -41436,7 +41497,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -42986,7 +43047,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[8])
+},{}]},{},[10])
 
 
 //# sourceMappingURL=main.js.map
