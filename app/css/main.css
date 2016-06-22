@@ -2222,4 +2222,43 @@ body {
   .title-bar .right-controls > div {
     text-align: center; }
 
+/*menu BEGIN*/
+.menu-area {
+  position: relative;
+  background-color: #333;
+  color: #ccc;
+  padding: 0;
+  margin: 0;
+  width: 200px;
+  height: 100vh; }
+  .menu-area .menu-area ul {
+    padding-left: 0; }
+  .menu-area .menu {
+    list-style-type: none;
+    vertical-align: top;
+    padding-left: 0; }
+  .menu-area .menu ul {
+    display: inline;
+    list-style-type: none;
+    padding-left: 0; }
+  .menu-area .menu li {
+    line-height: 3em;
+    cursor: pointer; }
+  .menu-area .menu li div {
+    display: inline-block;
+    width: 90%;
+    padding-left: 16px; }
+  .menu-area .selectabel-item:hover {
+    background-color: #555; }
+  .menu-area .menu-icon {
+    margin-right: 10px; }
+  .menu-area .subitem-section {
+    padding-left: 16px; }
+  .menu-area .noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+
 /*# sourceMappingURL=main.css.map */

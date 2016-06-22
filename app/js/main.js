@@ -114,7 +114,14 @@ var menuGroupDir = function menuGroupDir() {
 			route: '@'
 
 		},
-		templateUrl: './templates/menuGroup.tpl.html'
+		templateUrl: './templates/menuGroup.tpl.html',
+		link: function link(scope, el, attr, ctrl) {
+			scope.isOpen = false;
+
+			scope.clicked = function () {
+				scope.isOpen = !scope.isOpen;
+			};
+		}
 
 	};
 };

@@ -1,11 +1,11 @@
-<li class="selectable-item">
-	<div class="no-select">
+<li class="selectable-item" ng-click="clicked()">
+	<div class="noselect">
 		<i class="fa {{icon}} menu-icon">
 			{{label}}
 		</i>
 	</div>
 </li>
 
-<div class="subitem-section">
+<div ng-show="isOpen" class="subitem-section">
 	<ul ng-transclude></ul>
 </div>
