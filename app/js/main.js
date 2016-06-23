@@ -10,17 +10,22 @@ var _angular2 = _interopRequireDefault(_angular);
 _angular2['default'].module('app.core', []);
 
 },{"angular":12}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+	value: true
 });
-var FrameCtrl = function FrameCtrl() {};
+var FrameCtrl = function FrameCtrl($scope) {
 
-FrameCtrl.$inject = [];
+	$scope.$on('menu-item-click', function (evt, data) {
+		$scope.routeString = data.route;
+	});
+};
 
-exports["default"] = FrameCtrl;
-module.exports = exports["default"];
+FrameCtrl.$inject = ['$scope'];
+
+exports['default'] = FrameCtrl;
+module.exports = exports['default'];
 
 },{}],3:[function(require,module,exports){
 'use strict';
@@ -71,7 +76,9 @@ _angular2['default'].module('app.frame', []).controller('FrameCtrl', _controller
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var menuCtrl = function menuCtrl($scope) {
+var menuCtrl = function menuCtrl($scope, $rootScope) {
+
+	$scope.isVertical = true;
 
 	this.getActiveElement = function () {
 		return $scope.activeElement;
@@ -79,9 +86,23 @@ var menuCtrl = function menuCtrl($scope) {
 	this.setActiveElement = function (el) {
 		$scope.activeElement = el;
 	};
+	this.isVertical = function () {
+		return $scope.isVertical;
+	};
+	this.setRoute = function (route) {
+		$rootScope.$broadcast('menu-item-click', { route: route });
+	};
+	this.setOpenMenuScope = function (scope) {
+		$scope.OpenMenuScope = scope;
+	};
+	$scope.toggleMenuOrientation = function () {
+		if ($scope.OpenMenuScope) {
+			$scope.OpenMenuScope.closeMenu();
+		}
+	};
 };
 
-menuCtrl.$inject = ['$scope'];
+menuCtrl.$inject = ['$scope', '$rootScope'];
 
 exports['default'] = menuCtrl;
 module.exports = exports['default'];
@@ -126,11 +147,17 @@ var menuGroupDir = function menuGroupDir() {
 		link: function link(scope, el, attr, ctrl) {
 			scope.isOpen = false;
 
+			scope.closeMenu = function () {
+				scope.isOpen = false;
+			};
+
 			scope.clicked = function () {
 				scope.isOpen = !scope.isOpen;
+
+				ctrl.setOpenMenuScope(scope);
 			};
 			scope.isVertical = function () {
-				return true;
+				return ctrl.isVertical();
 			};
 		}
 
@@ -170,6 +197,7 @@ var menuItemDir = function menuItemDir() {
 				evt.preventDefault();
 				scope.$apply(function () {
 					ctrl.setActiveElement(el);
+					ctrl.setRoute(scope.route);
 				});
 			});
 		}

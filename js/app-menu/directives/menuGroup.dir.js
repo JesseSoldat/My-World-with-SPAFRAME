@@ -12,12 +12,18 @@ let menuGroupDir = function () {
 		link: function(scope, el, attr, ctrl) {
 			scope.isOpen = false;
 
+			scope.closeMenu = function() {
+				scope.isOpen = false;
+			};
+
 			scope.clicked = function() {
 				scope.isOpen = !scope.isOpen;
-			}
+
+				ctrl.setOpenMenuScope(scope);
+			};
 			scope.isVertical = function() {
-				return true;
-			}
+				return ctrl.isVertical();
+			};
 		}
 
 	}

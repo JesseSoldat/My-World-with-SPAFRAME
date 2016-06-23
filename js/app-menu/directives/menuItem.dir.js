@@ -20,6 +20,7 @@ let menuItemDir = function () {
 				evt.preventDefault();
 				scope.$apply(function () {
 					ctrl.setActiveElement(el);
+					ctrl.setRoute(scope.route);
 				});
 			});
 
