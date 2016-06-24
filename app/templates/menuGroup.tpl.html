@@ -1,4 +1,5 @@
-<li class="selectable-item" ng-click="clicked()">
+<li class="selectable-item" ng-click="clicked()"
+ng-class="{'item-horizontal' : !isVertical() }">
 	<div class="noselect">
 		<i class="fa {{icon}} menu-icon">
 			{{label}}

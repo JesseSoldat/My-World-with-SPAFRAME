@@ -11,6 +11,15 @@
 					{{subtitle}}
 				</p>
 			</div>
+
+			<div ng-if="isMenuButtonVisible"
+			class="collapsed-menu pull-right"
+			ng-click="menuButtonClicked()">
+
+				<button type="button" class="btn nav-button">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
 		</div>
 
 		<div class="right-controls col-sm-6">

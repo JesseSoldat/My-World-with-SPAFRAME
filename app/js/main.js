@@ -15,14 +15,46 @@ _angular2['default'].module('app.core', []);
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var FrameCtrl = function FrameCtrl($scope) {
+var FrameCtrl = function FrameCtrl($scope, $window, $rootScope) {
+
+	$scope.isMenuVertical = true;
+	$scope.isMenuVisible = true;
+	$scope.isMenuButtonVisible = true;
 
 	$scope.$on('menu-item-click', function (evt, data) {
 		$scope.routeString = data.route;
 	});
+	$scope.$on('menu-orientation-change', function (evt, data) {
+		$scope.isMenuVertical = data.isMenuVertical;
+	});
+	$($window).on('resize.framework', function () {
+		$scope.$apply(function () {
+			checkWidth();
+		});
+	});
+	$scope.$on('$destroy', function () {
+		$($window).off('resize.framework');
+	});
+
+	var checkWidth = function checkWidth() {
+		var width = Math.max($($window).width(), $window.innerWidth);
+		// console.log(width);
+		$scope.isMenuVisible = width > 768;
+		$scope.isMenuButtonVisible = !$scope.isMenuVisible;
+	};
+	$scope.menuButtonClicked = function () {
+
+		$scope.isMenuVisible = !$scope.isMenuVisible;
+
+		broadcastMenuState();
+	};
+	var broadcastMenuState = function broadcastMenuState() {
+
+		$rootScope.$broadcast('menu-show', { show: $scope.isMenuVisible });
+	};
 };
 
-FrameCtrl.$inject = ['$scope'];
+FrameCtrl.$inject = ['$scope', '$window', '$rootScope'];
 
 exports['default'] = FrameCtrl;
 module.exports = exports['default'];
@@ -60,6 +92,10 @@ var _angular = require('angular');
 
 var _angular2 = _interopRequireDefault(_angular);
 
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 var _controllersFrameCtrl = require('./controllers/frame.ctrl');
 
 var _controllersFrameCtrl2 = _interopRequireDefault(_controllersFrameCtrl);
@@ -70,7 +106,7 @@ var _directivesFrameDir2 = _interopRequireDefault(_directivesFrameDir);
 
 _angular2['default'].module('app.frame', []).controller('FrameCtrl', _controllersFrameCtrl2['default']).directive('frameDir', _directivesFrameDir2['default']);
 
-},{"./controllers/frame.ctrl":2,"./directives/frame.dir":3,"angular":12}],5:[function(require,module,exports){
+},{"./controllers/frame.ctrl":2,"./directives/frame.dir":3,"angular":12,"jquery":13}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -79,6 +115,7 @@ Object.defineProperty(exports, '__esModule', {
 var menuCtrl = function menuCtrl($scope, $rootScope) {
 
 	$scope.isVertical = true;
+	$scope.showMenu = true;
 
 	this.getActiveElement = function () {
 		return $scope.activeElement;
@@ -99,7 +136,14 @@ var menuCtrl = function menuCtrl($scope, $rootScope) {
 		if ($scope.OpenMenuScope) {
 			$scope.OpenMenuScope.closeMenu();
 		}
+		$scope.isVertical = !$scope.isVertical;
+
+		$rootScope.$broadcast('menu-orientation-change', { isMenuVertical: $scope.isVertical });
 	};
+	$scope.$on('menu-show', function (evt, data) {
+
+		$scope.showMenu = data.show;
+	});
 };
 
 menuCtrl.$inject = ['$scope', '$rootScope'];
@@ -153,11 +197,19 @@ var menuGroupDir = function menuGroupDir() {
 
 			scope.clicked = function () {
 				scope.isOpen = !scope.isOpen;
+				if (el.parent('subitem-section').length === 0) {
+					scope.setSubmenuPosition();
+				};
 
 				ctrl.setOpenMenuScope(scope);
 			};
 			scope.isVertical = function () {
 				return ctrl.isVertical();
+			};
+			scope.setSubmenuPosition = function () {
+				var pos = el.offset();
+				console.log(pos);
+				$('.subitem-section').css({ 'left': pos.left + 20, 'top': 36 });
 			};
 		}
 
@@ -190,7 +242,7 @@ var menuItemDir = function menuItemDir() {
 				return el === ctrl.getActiveElement();
 			};
 			scope.isVertical = function () {
-				return true;
+				return ctrl.isVertical();
 			};
 			el.on('click', function (evt) {
 				evt.stopPropagation();

@@ -1,6 +1,7 @@
 let menuCtrl = function($scope, $rootScope) {
 
 	$scope.isVertical = true;
+	$scope.showMenu = true;
 
 	this.getActiveElement = function() {
 		return $scope.activeElement;
@@ -22,7 +23,14 @@ let menuCtrl = function($scope, $rootScope) {
 		if ($scope.OpenMenuScope) {
 			$scope.OpenMenuScope.closeMenu();
 		}
+		$scope.isVertical = !$scope.isVertical;
+
+		$rootScope.$broadcast('menu-orientation-change', { isMenuVertical: $scope.isVertical});
 	};
+	$scope.$on('menu-show', function (evt, data) {
+		
+		$scope.showMenu = data.show;
+	});
 };
 
 menuCtrl.$inject = ['$scope', '$rootScope'];

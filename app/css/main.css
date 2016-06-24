@@ -2221,6 +2221,14 @@ body {
     line-height: 60px; }
   .title-bar .right-controls > div {
     text-align: center; }
+  .title-bar .nav-button {
+    height: 40px;
+    width: 50px;
+    margin-top: 10px;
+    border: 1px solid #888;
+    padding: 0;
+    font-size: 26px;
+    color: #777; }
 
 /*menu BEGIN*/
 .menu-area {
@@ -2228,9 +2236,7 @@ body {
   background-color: #333;
   color: #ccc;
   padding: 0;
-  margin: 0;
-  width: 200px;
-  height: 100vh; }
+  margin: 0; }
   .menu-area .menu-area ul {
     padding-left: 0; }
   .menu-area .menu {
@@ -2276,5 +2282,25 @@ body {
     color: #bbb;
     background-color: #333;
     border: 1px solid #999; }
+  .menu-area .layout-button-horizontal {
+    position: absolute;
+    top: -6px;
+    right: 10px; }
+  .menu-area .item-horizontal {
+    display: inline-block;
+    width: 165px !important;
+    margin-left: 20px;
+    margin-top: 5px;
+    line-height: 1.5em !important; }
+
+.menu-area-vertical {
+  float: left;
+  width: 200px;
+  min-height: 100vh;
+  padding-top: 30px; }
+
+.menu-area-horizontal {
+  width: 100%;
+  height: 40px; }
 
 /*# sourceMappingURL=main.css.map */
